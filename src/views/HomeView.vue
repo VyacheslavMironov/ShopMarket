@@ -1,14 +1,16 @@
 <template>
-  <div class="home">
+  <div class="container">
     <div class="row">
       <div
         v-for="i in this.list"
         v-bind:key="i"
-        class="card p-3 col-4 mt-5"
+        class="col-4 mt-5"
       >
-        <div class="card-header">{{ i.Name }}</div>
-        <div class="card-body">{{ i.Description }}</div>
-        <div class="card-footer">{{ i.Price }}</div>
+        <div class="card p-3">
+          <div class="card-header">{{ i.Name }}</div>
+          <div class="card-body">{{ i.Description }}</div>
+          <div class="card-footer">{{ i.Price }}</div>
+        </div>  
       </div>
     </div>
   </div>
