@@ -62,8 +62,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
-
     export default{
         data(){
             return {
@@ -78,25 +76,7 @@
         methods: {
             add: function()
             {
-                axios.post("http://127.0.0.1:8000/api/user/create", {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
-                    },
-                    "first_name": this.first_name,
-                    "last_name": this.last_name,
-                    "email": this.email,
-                    "phone": this.phone,
-                    "role": this.role,
-                    "password": this.password,
-                })
-                .then(function(response){
-                    console.log(response)
-                })
-                .catch(function(error){
-                    console.log(error)
-                })
+                // проверить что данные записаны в модел данных
             }
         }
     }
