@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 
 export default {
@@ -85,11 +86,22 @@ export default {
     methods: {
         loginSend: function()
         {
-            this.error = this.signInEmail.length > 0 && this.signInPassword.length > 0 ? false : true
-            if (!this.error)
-            {
-                this.authUser = {email: this.signInEmail, password: this.signInPassword}
-            }
+            axios.get(`http://127.0.0.1:8000/api/user/auth/email/${this.signInEmail}/password/${this.signInPassword}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Access-Control-Allow-Origin': '*',
+                        'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
+                    }
+                })
+                .then(function(response){
+                    if (response.data.bearerTocken.length > 0)
+                    {
+                        localStorage.setItem("tocken", response.data.bearerTocken)
+                    }
+                })
+                .catch(function(error){
+                    console.log(error)
+                })
         }
     }
 }
