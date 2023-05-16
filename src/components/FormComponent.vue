@@ -53,7 +53,7 @@
                 >
             </div>
             <button 
-                type="submit" 
+                type="button" 
                 class="btn btn-primary"
                 v-on:click="add"
             >Отправить</button>
@@ -62,8 +62,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
     export default{
         data(){
             return {
@@ -78,18 +76,7 @@ import axios from 'axios';
         methods: {
             add: function()
             {
-               axios.post("", {
-                "first_name": this.first_name,
-                "last_name": this.last_name,
-                "email": this.email,
-                "phone": this.phone,
-                "role": this.role,
-                "password": this.password,
-               })
-               .then(function(response){
-                console.log(response)
-               })
-              
+                // проверить что данные записаны в модел данных
             }
         }
     }
