@@ -24,6 +24,12 @@ const routes = [
     name: 'cart',
     component: import('../views/CartView.vue')
   },
+  // Админка
+  {
+    path: '/admin/home',
+    name: 'admin',
+    component: import('../views/Admin/HomeView.vue')
+  },
 ]
 
 const router = createRouter({
