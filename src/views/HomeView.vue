@@ -9,7 +9,14 @@
         <div class="card p-3">
           <div class="card-header">{{ i.Name }}</div>
           <div class="card-body">{{ i.Description }}</div>
-          <div class="card-footer">{{ i.Price }}</div>
+          <div class="card-footer">
+            {{ i.Price }}
+            <hr>
+            <button
+              type="button"
+              class="btn btn-primary"
+            >В корзину</button>
+          </div>
         </div>  
       </div>
     </div>
@@ -17,36 +24,39 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   data() {
     return {
-      list: [
-        {
-          Name: "Огурец", 
-          Description: "Свежий, только что с грядки!",
-          Price: 25.50
-        },
-        {
-          Name: "Маршрутка", 
-          Description: "Везёт не овощи, а людей!",
-          Price: 90.00
-        },
-        {
-          Name: "Салфетки", 
-          Description: "Влажные, чистые!",
-          Price: 25.00
-        },
-        {
-          Name: "Ручка", 
-          Description: "Гелевая!",
-          Price: 100.00
-        }
-      ]
+      list: Array
     }
   },
-  components: {
-    
+  methods: {
+    getServer: function()
+    {
+      var self = this
+      axios.get('http://127.0.0.1:8000/api/shop/all', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
+          }
+      })
+        .then(function(request) {
+          console.log(request.data)
+          self.list = request.data
+        })
+        .catch(function(error) {
+          if (error) {
+            alert("Ошибка загрузки данных!")
+            console.log(error)
+          }
+        })
+    }
+  },
+  mounted() {
+    this.getServer()
   }
 }
 </script>

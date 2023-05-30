@@ -3,28 +3,36 @@
         <div class="row mt-5">
             <div class="col-8 mx-auto">
                 <h4>Ваши товары:</h4>
-                <ul class="list-group">
-                    <li
-                        class="list-group-item d-flex"
-                        v-for="i in sourceList"
-                        v-bind:key="i"
-                    >
-                        <form>
-                            <input type="checkbox" class="form-check-input">
-                        </form>
-                         <div class="col-1"></div> {{ i.Name }}
-                         <div class="col-1"></div> Цена: {{ i.Price }}
-                    </li>
-                </ul>
-                <hr>
-                 <div class="row">
-                    <div class="col-10">
-                        <b>2200 р</b>
-                    </div>
-                    <div class="col-2">
-                        <button class="btn btn-primary w-100">Оплатить</button>
-                    </div>
-                 </div>
+                <div class="mt-5">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Наименование товара</th>
+                            <th scope="col">Описание товара</th>
+                            <th scope="col">Цена</th>
+                            <th scope="col">Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="i in sourceList"
+                                v-bind:key="i"
+                            >
+                                <th scope="row">1</th>
+                                <td>{{ i.Name }}</td>
+                                <td>{{ i.Description }}</td>
+                                <td>{{ i.Price }}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger"
+                                    >Удалить</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

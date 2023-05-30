@@ -30,6 +30,11 @@ const routes = [
     name: 'admin',
     component: import('../views/Admin/HomeView.vue')
   },
+  {
+    path: '/admin/shop/create',
+    name: 'admin_shop_create',
+    component: import('../views/Admin/ShopCreateView.vue')
+  },
 ]
 
 const router = createRouter({
