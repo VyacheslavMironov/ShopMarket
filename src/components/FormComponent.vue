@@ -62,6 +62,8 @@
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default{
         data(){
             return {
@@ -74,9 +76,48 @@
             }
         },
         methods: {
+            validateCreateUser: function()
+            {
+                if (this.first_name.length > 0 && this.last_name.length > 0 && 
+                    this.email.length > 0 &&  this.phone.length > 0 && 
+                    this.role.length > 0 && this.password.length > 0) 
+                {
+                    return true;
+                }
+                return false;
+            },
             add: function()
             {
                 // проверить что данные записаны в модел данных
+                if (this.validateCreateUser)
+                {
+                    // Запрос на сервер
+                    axios.get(`http://127.0.0.1:8000/api/user/create`, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
+                        },
+                        data: {
+                            first_name: this.first_name,
+                            last_name: this.last_name,
+                            email: this.email,
+                            phone: this.phone,
+                            role: this.role,
+                            password: this.password
+                        }
+                    })
+                    .then(function(response){
+                        console.log(response)
+                    })
+                    .catch(function(error){
+                        console.log(error)
+                    })
+                }
+                else
+                {
+                    alert("Заполните все поля!")
+                }
             }
         }
     }
