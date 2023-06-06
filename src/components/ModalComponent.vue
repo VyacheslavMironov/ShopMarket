@@ -97,6 +97,8 @@ export default {
                     if (response.data.bearerTocken.length > 0)
                     {
                         localStorage.setItem("tocken", response.data.bearerTocken)
+                        localStorage.setItem("user_id", response.data["0"].id)
+                        alert('Вы авторизовались!')
                     }
                 })
                 .catch(function(error){

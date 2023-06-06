@@ -92,23 +92,27 @@
                 if (this.validateCreateUser)
                 {
                     // Запрос на сервер
-                    axios.get(`http://127.0.0.1:8000/api/user/create`, {
+                    axios.post(`http://127.0.0.1:8000/api/user/create`, {
                         headers: {
                             'Content-Type': 'application/json',
                             'Access-Control-Allow-Origin': '*',
                             'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
                         },
-                        data: {
-                            first_name: this.first_name,
-                            last_name: this.last_name,
-                            email: this.email,
-                            phone: this.phone,
-                            role: this.role,
-                            password: this.password
-                        }
+                        first_name: this.first_name,
+                        last_name: this.last_name,
+                        email: this.email,
+                        phone: this.phone,
+                        role: this.role,
+                        password: this.password
+                        
                     })
                     .then(function(response){
-                        console.log(response)
+                        if ((response.data))
+                        {
+                            alert('Спасибо за регистрацию!')
+                            window.location.href = '/'
+                        }
+                        
                     })
                     .catch(function(error){
                         console.log(error)

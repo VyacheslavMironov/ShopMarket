@@ -12,17 +12,32 @@
                         v-for="menu_element in menu"
                         v-bind:key="menu_element"
                     >
-                    <router-link
-                        v-if="menu_element.title != 'Войти'"
-                        v-bind:to="menu_element.link"
-                        class="nav-link active" 
-                    >{{ menu_element.title }}</router-link>
+                        <router-link
+                            v-if="menu_element.title != 'Войти'"
+                            v-bind:to="menu_element.link"
+                            class="nav-link active" 
+                        >{{ menu_element.title }}</router-link>
+                    </li>
+                    <li
+                        v-if="auth"
+                        class="nav-item">
                         <ButtonComponent
-                            v-else
                             button_type="Modal"
-                            v-bind:text="menu_element.title"
+                            v-bind:text="Войти"
                             position="right"
                             get_id="exampleModal"
+                        />
+                    </li>
+                    <li
+                        v-else
+                        class="nav-item"
+                    >
+                        <ButtonComponent
+                            v-on:click="logout"
+                            button_type="Button"
+                            v-bind:text="Выйти"
+                            position="right"
+                            get_id=""
                         />
                     </li>
                 </ul>
@@ -32,6 +47,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import ButtonComponent from '@/components/ButtonComponent.vue'
 
 export default {
@@ -42,11 +58,37 @@ export default {
                 {title: "Категории", link: "/catalog"},
                 {title: "Корзина", link: "/cart"},
                 {title: "Войти", link: "#"}
-            ]
+            ],
+            auth: localStorage.getItem('tocken'),
+            authUserId: localStorage.getItem('user_id')
         }
     },
     components: {
         ButtonComponent
+    },
+    methods:
+    {
+        logout: function()
+        {
+            axios.get(`http://127.0.0.1:8000/api/user/logout/${this.authUserId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length'
+                }
+            })
+            .then(function(response){
+                if (response.data)
+                {
+                    localStorage.removeItem("tocken")
+                    localStorage.removeItem("user_id")
+                    alert('Вы вышли из учётной записи!')
+                }
+            })
+            .catch(function(error){
+                console.log(error)
+            })
+        }
     }
 }
 </script>

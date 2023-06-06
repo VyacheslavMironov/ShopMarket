@@ -7,10 +7,10 @@
         class="col-4 mt-5"
       >
         <div class="card p-3">
-          <div class="card-header">{{ i.Name }}</div>
-          <div class="card-body">{{ i.Description }}</div>
+          <div class="card-header">{{ i.name }}</div>
+          <div class="card-body">{{ i.description }}</div>
           <div class="card-footer">
-            {{ i.Price }}
+            {{ i.price }}
             <hr>
             <button
               type="button"
@@ -44,13 +44,11 @@ export default {
           }
       })
         .then(function(request) {
-          console.log(request.data)
           self.list = request.data
         })
         .catch(function(error) {
           if (error) {
             alert("Ошибка загрузки данных!")
-            console.log(error)
           }
         })
     }
